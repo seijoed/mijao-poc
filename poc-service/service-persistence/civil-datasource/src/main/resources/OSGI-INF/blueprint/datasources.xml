@@ -4,16 +4,17 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0">
 
-    <cm:property-placeholder persistent-id="net.latinus.sinardap.ant.datasource" id="datsources">
+  
+    <cm:property-placeholder persistent-id="mijao.datasource" id="datsources">
         <cm:default-properties>
 
             <!-- ant.jdbc Drivers -->
             <cm:property name="ant.jdbc.driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 
             <!-- 200.107.17.165:1521 -->
-            <cm:property name="ant.jdbc.url" value="jdbc:oracle:thin:@200.107.17.165:1521/orcl.latinus.com"/>
-            <cm:property name="ant.jdbc.username" value="REPDIN"/>
-            <cm:property name="ant.jdbc.password" value="Latinus01"/>
+            <cm:property name="ant.jdbc.url" value="jdbc:oracle:thin:@10.1.20.205:1521/SARC"/>
+            <cm:property name="ant.jdbc.username" value="PORTAL"/>
+            <cm:property name="ant.jdbc.password" value="p0rtql_sarc"/>
 
             <!-- Connection Pooling DBCP -->
             <cm:property name="ant.jdbc.initialSize" value="5"/>
@@ -26,6 +27,7 @@
 
         </cm:default-properties>
     </cm:property-placeholder>
+    
 
     <service interface="javax.sql.DataSource" ref="jta">
         <service-properties>

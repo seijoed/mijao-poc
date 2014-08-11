@@ -11,8 +11,6 @@
 
     <artifactId>civil-jpa-persistence</artifactId>
 
-    <name>SINARDAP :: ANT JPA Library</name>
-    <description>SINARDAP ANT JPA Library</description>
 
     <packaging>bundle</packaging>
 

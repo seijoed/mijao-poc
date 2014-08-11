@@ -1,0 +1,61 @@
+<features name="com.cengage.eit.parent-${project.version}">
+
+    <repository>mvn:org.apache.camel.karaf/apache-camel/${camel-version}/xml/features</repository>
+    <repository>mvn:org.apache.activemq/activemq-karaf/${activemq-version}/xml/features</repository>
+
+    <!-- Infrastructure -->
+
+    <feature name="eit-jaxb-pool" version="${project.version}">
+        <feature version="${camel-version}">camel-jaxb</feature>
+        <bundle dependency="true">mvn:commons-pool/commons-pool/1.6</bundle>
+        <bundle>mvn:com.cengage.eit/jaxb-engine/${project.version}</bundle>
+    </feature>
+
+    <feature name="eit-jms-pool" version="${project.version}">
+        <bundle>mvn:com.cengage.eit/jms-pooling/${project.version}</bundle>
+    </feature>
+
+    <feature name="eit-eventing" version="${project.version}">
+        <feature version="${project.version}">eit-persistence</feature>
+        <bundle dependency="true">mvn:commons-collections/commons-collections/${commons-collections-version}</bundle>
+        <bundle dependency="true">mvn:commons-beanutils/commons-beanutils/${commons-beanutils-version}</bundle>
+        <bundle dependency="true">mvn:com.google.guava/guava/${guava-version}</bundle>
+        <bundle dependency="true">mvn:commons-pool/commons-pool/${commons-pool-version}</bundle>
+        <bundle dependency="true">mvn:commons-codec/commons-codec/${commons-codec-version}</bundle>
+        <bundle dependency="true">mvn:commons-lang/commons-lang/${commons-lang-version}</bundle>
+        <bundle dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3-version}</bundle>
+        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.javassist/${javassist-version}</bundle>
+        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.ognl/${ognl-version}_1</bundle>
+        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.fastinfoset/1.2.2_1</bundle>
+        <bundle dependency="true">mvn:com.codahale.metrics/metrics-core/${metrics-core-version}</bundle>
+        <bundle dependency="true">mvn:io.netty/netty/${netty-persistence-version}</bundle>
+        <bundle dependency="true">mvn:com.datastax.cassandra/cassandra-driver-core/${cassandra-driver-version}</bundle>
+        <bundle>mvn:com.savoirtech.hecate/hecate-cql3/${hecate-version}</bundle>
+        <bundle dependency="true">mvn:com.cengage.eit/eit-eventing/${project.version}</bundle>
+    </feature>
+
+    <feature name="eit-persistence" version="${project.version}">
+        <feature>camel-jetty</feature>
+        <feature>camel-http4</feature>
+
+        <bundle dependency="true">mvn:commons-beanutils/commons-beanutils/${commons-beanutils-version}</bundle>
+        <bundle dependency="true">mvn:com.google.guava/guava/${guava-version}</bundle>
+        <bundle dependency="true">mvn:commons-pool/commons-pool/${commons-pool-version}</bundle>
+        <bundle dependency="true">mvn:commons-codec/commons-codec/${commons-codec-version}</bundle>
+        <bundle dependency="true">mvn:commons-lang/commons-lang/${commons-lang-version}</bundle>
+        <bundle dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3-version}</bundle>
+        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.javassist/${javassist-version}</bundle>
+        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.ognl/${ognl-version}_1</bundle>
+        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.fastinfoset/1.2.2_1</bundle>
+        <bundle dependency="true">mvn:com.codahale.metrics/metrics-core/${metrics-core-version}</bundle>
+        <bundle dependency="true">mvn:io.netty/netty/${netty-persistence-version}</bundle>
+        <bundle dependency="true">mvn:com.datastax.cassandra/cassandra-driver-core/${cassandra-driver-version}</bundle>
+        <bundle>mvn:com.savoirtech.hecate/hecate-cql3/${hecate-version}</bundle>
+
+        <bundle dependency="true">mvn:com.cengage.eit/eit-persistence/${project.version}</bundle>
+
+        <bundle dependency="true">mvn:com.cengage.eit/eit-persistence-cql/${project.version}</bundle>
+
+    </feature>
+
+</features>

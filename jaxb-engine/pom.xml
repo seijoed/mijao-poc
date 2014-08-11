@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+           <artifactId>mijao-parent</artifactId>
+           <groupId>com.mijao.poc</groupId>
+           <version>1.0.1-SNAPSHOT</version>
+       </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jaxb-engine</artifactId>
+
+    <packaging>bundle</packaging>
+
+    <properties>
+        <cengage.osgi.export.pkg>
+            com.mijao.poc.jaxb*
+        </cengage.osgi.export.pkg>
+        <cengage.osgi.dynamic>*</cengage.osgi.dynamic>
+    </properties>
+
+    <name>EIT ::: JAXB POOL</name>
+    <description>EIT ::: JAXB Pool Module</description>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+        </dependency>
+
+        <dependency>
+            <artifactId>junit</artifactId>
+            <groupId>junit</groupId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jettison</groupId>
+            <artifactId>jettison</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+    </dependencies>
+</project>

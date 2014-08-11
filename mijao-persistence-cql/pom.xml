@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mijao-parent</artifactId>
+        <groupId>com.mijao.poc</groupId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mijao-persistence-cql</artifactId>
+
+    <packaging>bundle</packaging>
+    <properties>
+        <cengage.osgi.export.pkg>
+            com.mijao.poc.persistence.cql
+        </cengage.osgi.export.pkg>
+
+        <cengage.osgi.import>
+            *
+        </cengage.osgi.import>
+        <cengage.osgi.dynamic>*</cengage.osgi.dynamic>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.mijao.poc</groupId>
+            <artifactId>mijao-persistence</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.savoirtech.hecate</groupId>
+            <artifactId>hecate-cql3</artifactId>
+            <version>${hecate-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+    </dependencies>
+</project>

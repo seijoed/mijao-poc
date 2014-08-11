@@ -1,0 +1,110 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0">
+    <!-- Allows us to use systemId properties as variables in this configuration file -->
+
+    <cm:property-placeholder persistent-id="com.cengage.eit.jms" update-strategy="reload">
+        <cm:default-properties>
+
+            <cm:property name="internal.producer.url"
+                         value="failover:(tcp://localhost:61616)"/>
+            <cm:property name="internal.producer.maxconnections" value="8"/>
+            <cm:property name="internal.producer.maximumactive" value="10"/>
+            <cm:property name="internal.consumer.url"
+                         value="failover:(tcp://localhost:61616)?jms.prefetchPolicy.all=1"/>
+            <cm:property name="internal.consumer.session.cache.size" value="10"/>
+            <cm:property name="external.producer.url"
+                         value="failover:(tcp://localhost:61616)"/>
+            <cm:property name="external.producer.maxconnections" value="8"/>
+            <cm:property name="external.producer.maximumactive" value="10"/>
+            <cm:property name="external.consumer.url"
+                         value="failover:(tcp://localhost:61616)?jms.prefetchPolicy.all=1"/>
+            <cm:property name="external.consumer.session.cache.size" value="10"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <!-- Internal (local) services -->
+    <bean id="amqConnectionFactoryInternal" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${internal.producer.url}"/>
+    </bean>
+
+    <bean id="amqPooledConnectionFactoryInternal" class="org.apache.activemq.pool.PooledConnectionFactory" init-method="start" destroy-method="stop">
+        <property name="maxConnections" value="${internal.producer.maxconnections}"/>
+        <property name="connectionFactory" ref="amqConnectionFactoryInternal"/>
+    </bean>
+
+    <bean id="resourceManagerInternal" class="org.apache.activemq.pool.ActiveMQResourceManager" init-method="recoverResource">
+        <!--
+        <property name="transactionManager" ref="transactionManager"/>
+        -->
+        <property name="connectionFactory" ref="amqConnectionFactoryInternal"/>
+        <property name="resourceName" value="activemq.default"/>
+    </bean>
+
+    <!-- Client pool config -->
+
+    <bean id="amqClientConnectionFactoryInternal" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${internal.consumer.url}"/>
+    </bean>
+
+    <!-- Transactions -->
+
+    <!--reference id="transactionManager" interface="javax.transaction.TransactionManager"/-->
+
+    <!-- Service exposure -->
+
+    <service ref="amqPooledConnectionFactoryInternal" interface="javax.jms.ConnectionFactory">
+        <service-properties>
+            <entry key="internal-producer" value="true"/>
+        </service-properties>
+    </service>
+
+    <service ref="amqClientConnectionFactoryInternal" interface="javax.jms.ConnectionFactory">
+        <service-properties>
+            <entry key="internal-consumer" value="true"/>
+        </service-properties>
+    </service>
+
+    <!-- External services -->
+
+    <bean id="amqConnectionFactoryExternal" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${external.producer.url}"/>
+    </bean>
+
+    <bean id="amqPooledConnectionFactoryExternal" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+        <property name="maxConnections" value="${external.producer.maxconnections}"/>
+        <property name="connectionFactory" ref="amqConnectionFactoryExternal"/>
+    </bean>
+
+    <bean id="resourceManagerExternal" class="org.apache.activemq.pool.ActiveMQResourceManager" init-method="recoverResource">
+        <!--
+        <property name="transactionManager" ref="transactionManager"/>
+        -->
+        <property name="connectionFactory" ref="amqConnectionFactoryExternal"/>
+        <property name="resourceName" value="activemq.default"/>
+    </bean>
+
+    <!-- Client pool config -->
+
+    <bean id="amqClientConnectionFactoryExternal" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${external.consumer.url}"/>
+    </bean>
+
+    <!-- Transactions -->
+
+    <!--reference id="transactionManager" interface="javax.transaction.TransactionManager"/-->
+
+    <!-- Service exposure -->
+
+    <service ref="amqPooledConnectionFactoryExternal" interface="javax.jms.ConnectionFactory">
+        <service-properties>
+            <entry key="external-producer" value="true"/>
+        </service-properties>
+    </service>
+
+    <service ref="amqClientConnectionFactoryExternal" interface="javax.jms.ConnectionFactory">
+        <service-properties>
+            <entry key="external-consumer" value="true"/>
+        </service-properties>
+    </service>
+
+</blueprint>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.1.0"
+           xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.1.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+  <bean id="personasDAO" class="com.mijao.poc.persistence.civil.dao.jpa.PersonasDaoImpl">
+    <tx:transaction method="*" value="NotSupported"/>
+    <jpa:context property="entityManager" unitname="ant-jpa"/>
+  </bean>
+
+  <bean id="personasCteDAO" class="com.mijao.poc.persistence.civil.dao.jpa.PersonasCteDaoImpl">
+    <tx:transaction method="*" value="NotSupported"/>
+    <jpa:context property="entityManager" unitname="ant-jpa"/>
+  </bean>
+
+  <bean id="bloqueosVehCteDao" class="com.mijao.poc.persistence.civil.dao.jpa.BloquesVehCteDaoImpl">
+    <tx:transaction method="*" value="NotSupported"/>
+    <jpa:context property="entityManager" unitname="ant-jpa"/>
+  </bean>
+
+  <bean id="bloVehiculoDao" class="com.mijao.poc.persistence.civil.dao.jpa.BloVehiculosDaoImpl">
+    <tx:transaction method="*" value="NotSupported"/>
+    <jpa:context property="entityManager" unitname="ant-jpa"/>
+  </bean>
+
+  <bean id="matriculacionCteDao" class="com.mijao.poc.persistence.civil.dao.jpa.MatriculacionCteDaoImpl">
+    <tx:transaction method="*" value="NotSupported"/>
+    <jpa:context property="entityManager" unitname="ant-jpa"/>
+  </bean>
+
+  <bean id="matVehiculosDao" class="com.mijao.poc.persistence.civil.dao.jpa.MatVehicuolosDaoImpl">
+    <tx:transaction method="*" value="NotSupported"/>
+    <jpa:context property="entityManager" unitname="ant-jpa"/>
+  </bean>
+
+  <bean id="revisionCteDao" class="com.mijao.poc.persistence.civil.dao.jpa.RevisionCteDaoImpl">
+    <tx:transaction method="*" value="NotSupported"/>
+    <jpa:context property="entityManager" unitname="ant-jpa"/>
+  </bean>
+
+  <bean id="revVehiculosDao" class="com.mijao.poc.persistence.civil.dao.jpa.RevVehiculosDaoImpl">
+    <tx:transaction method="*" value="NotSupported"/>
+    <jpa:context property="entityManager" unitname="ant-jpa"/>
+  </bean>
+
+  <bean id="antSVC" class="com.mijao.poc.persistence.civil.svc.PersonasSvcImpl">
+    <property name="personasDao" ref="personasDAO"/>
+    <property name="personasCteDao" ref="personasCteDAO"/>
+
+    <property name="bloqueosVehCteDao" ref="bloqueosVehCteDao"/>
+    <property name="bloVehiculoDao" ref="bloVehiculoDao"/>
+    <property name="matriculacionCteDao" ref="matriculacionCteDao"/>
+    <property name="matVehiculosDao" ref="matVehiculosDao"/>
+    <property name="revisionCteDao" ref="revisionCteDao"/>
+    <property name="revVehiculosDao" ref="revVehiculosDao"/>
+
+  </bean>
+
+  <service ref="antSVC" interface="com.mijao.poc.persistence.civil.svc.PersonasSvc">
+    <service-properties>
+      <entry key="tranAttribute" value="NotSupported"/>
+      <entry key="version" value="1.1.0"/>
+    </service-properties>
+  </service>
+
+  <reference id="jta" interface="javax.sql.DataSource"
+             filter="(antTransactional=true)" availability="mandatory"/>
+
+  <reference id="nonJTA" interface="javax.sql.DataSource"
+             filter="(antTransactional=false)" availability="mandatory"/>
+
+</blueprint>

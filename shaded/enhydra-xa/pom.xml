@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>shaded</artifactId>
+        <groupId>com.mijao.poc</groupId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>enhydra-xa</artifactId>
+    <packaging>bundle</packaging>
+
+    <properties>
+        <pkgGroupId>xa-pool</pkgGroupId>
+        <pkgArtifactId>xa-pool</pkgArtifactId>
+        <pkgVersion>1.6-SNAPSHOT</pkgVersion>
+        <mijao.osgi.import>
+            !org.enhydra*,
+            org.apache.commons.logging;version="[1.1,2)",
+            org.apache.commons.logging.impl;version="[1.1,2)",
+            javax.transaction;version="[1.1,1.2)",
+            javax.transaction.xa;version="[1.1,1.2)",
+            oracle.jdbc.xa;resolution:=optional,
+            oracle.jdbc.xa.client;resolution:=optional
+            org.enhydra.instantdb.jdbc;resolution:=optional,
+            *
+        </mijao.osgi.import>
+        <mijao.osgi.export.pkg>
+            org.enhydra*;version="${project.version}"
+        </mijao.osgi.export.pkg>
+
+        <mijao.osgi.include.resource>{maven-resources},{maven-dependencies}</mijao.osgi.include.resource>
+        <mijao.osgi.failok>true</mijao.osgi.failok>
+
+    </properties>
+
+    <repositories>
+        <repository>
+            <!-- DO NOT set id to "local" because it is reserved by Maven -->
+            <id>lib</id>
+            <url>file://${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+
+        <!--
+        <dependency>
+            <groupId>xa-pool</groupId>
+            <artifactId>xa-pool</artifactId>
+            <version>1.6</version>
+        </dependency>
+
+        -->
+
+        <dependency>
+                  <groupId>xa-pool</groupId>
+                  <artifactId>xa-pool</artifactId>
+                  <version>1.6</version>
+                  <scope>system</scope>
+                  <systemPath>${basedir}/lib/xa-pool/xa-pool/1.6/xa-pool-1.6.jar</systemPath>
+              </dependency>
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jta_1.1_spec</artifactId>
+            <version>${geronimo-jta}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging-api</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>${pkgGroupId}:${pkgArtifactId}</include>
+                                </includes>
+                            </artifactSet>
+
+                            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

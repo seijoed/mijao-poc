@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>shaded</artifactId>
+        <groupId>com.mijao.poc</groupId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>CMP ::: DBCP</name>
+    <description>CMP ::: DBCP</description>
+
+    <groupId>com.mijao.platform.cmp</groupId>
+    <artifactId>dbcp</artifactId>
+    <version>${commons-dbcp-version}-SNAPSHOT</version>
+
+    <packaging>bundle</packaging>
+
+    <properties>
+        <pkgGroupId>org.opennms.ng</pkgGroupId>
+        <pkgArtifactId>dbcp</pkgArtifactId>
+        <pkgVersion>${commons-dbcp-version}</pkgVersion>
+
+        <mijao.osgi.import.pkg>
+            !org.apache.commons.dbcp*,
+            !org.apache.commons.jocl*
+            *
+        </mijao.osgi.import.pkg>
+        <mijao.osgi.export>
+            org.apache.commons.dbcp*;version="${commons-dbcp-version}" ,
+            org.apache.commons.jocl*;version="${commons-dbcp-version}" ,
+        </mijao.osgi.export>
+
+        <mijao.osgi.include.resource>{maven-resources},{maven-dependencies}</mijao.osgi.include.resource>
+        <mijao.osgi.failok>true</mijao.osgi.failok>
+
+        <!-- Trying to get around dynamic class.forname loading -->
+        <mijao.osgi.dynamic>*</mijao.osgi.dynamic>
+
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>${pkgGroupId}:${pkgArtifactId}</include>
+                                    <include>commons-dbcp:commons-dbcp</include>
+                                </includes>
+                            </artifactSet>
+
+                            <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

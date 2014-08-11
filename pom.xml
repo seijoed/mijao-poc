@@ -13,6 +13,7 @@
     <description>Mijao ::: Parent</description>
 
     <modules>
+        <module>shaded</module>
         <module>jms-pooling</module>
         <module>jaxb-engine</module>
         <!--
@@ -682,6 +683,12 @@
                 <groupId>org.ops4j.pax.swissbox</groupId>
                 <artifactId>pax-swissbox-tinybundles</artifactId>
                 <version>${tinybundles-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>${commons.dbcp.version}</version>
             </dependency>
 
             <dependency>

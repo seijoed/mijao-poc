@@ -1,0 +1,86 @@
+<!--
+  ~ Copyright (c) 2012. Latinus S.A.
+  -->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0">
+
+    <cm:property-placeholder persistent-id="net.latinus.sinardap.ant.datasource" id="datsources">
+        <cm:default-properties>
+
+            <!-- ant.jdbc Drivers -->
+            <cm:property name="ant.jdbc.driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+
+            <!-- 200.107.17.165:1521 -->
+            <cm:property name="ant.jdbc.url" value="jdbc:oracle:thin:@200.107.17.165:1521/orcl.latinus.com"/>
+            <cm:property name="ant.jdbc.username" value="REPDIN"/>
+            <cm:property name="ant.jdbc.password" value="Latinus01"/>
+
+            <!-- Connection Pooling DBCP -->
+            <cm:property name="ant.jdbc.initialSize" value="5"/>
+            <cm:property name="ant.jdbc.maxActive" value="10"/>
+            <cm:property name="ant.jdbc.maxIdle" value="10"/>
+            <cm:property name="ant.jdbc.defaultAutoCommit" value="false"/>
+            <cm:property name="ant.jdbc.removeAbandoned" value="false"/>
+            <cm:property name="ant.jdbc.removeAbandonedTimeout" value="300"/>
+            <cm:property name="ant.jdbc.logAbandoned" value="false"/>
+
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <service interface="javax.sql.DataSource" ref="jta">
+        <service-properties>
+            <entry key="antTransactional" value="true"/>
+        </service-properties>
+    </service>
+
+    <service interface="javax.sql.DataSource" ref="nonJTA">
+        <service-properties>
+            <entry key="antTransactional" value="false"/>
+        </service-properties>
+    </service>
+
+    <!-- ###### ant.jdbc Data Source ###### -->
+
+    <reference id="txManager" interface="javax.transaction.TransactionManager" availability="mandatory"/>
+
+    <bean id="dataSource" class="org.enhydra.jdbc.standard.StandardXADataSource">
+        <property name="driverName" value="${ant.jdbc.driverClassName}"/>
+        <property name="url" value="${ant.jdbc.url}"/>
+        <property name="user" value="${ant.jdbc.username}"/>
+        <property name="password" value="${ant.jdbc.password}"/>
+        <property name="minCon" value="${ant.jdbc.initialSize}"/>
+        <property name="maxCon" value="${ant.jdbc.maxActive}"/>
+    </bean>
+
+    <bean id="jta" class="org.enhydra.jdbc.pool.StandardXAPoolDataSource">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="transactionManager" ref="txManager"/>
+        <property name="user" value="${ant.jdbc.username}"/>
+        <property name="password" value="${ant.jdbc.password}"/>
+        <property name="minSize" value="${ant.jdbc.initialSize}"/>
+        <property name="maxSize" value="${ant.jdbc.maxActive}"/>
+    </bean>
+
+    <bean class="org.apache.commons.dbcp.BasicDataSource" id="nonJTA">
+        <property name="driverClassName" value="${ant.jdbc.driverClassName}"/>
+        <property name="url" value="${ant.jdbc.url}"/>
+        <property name="username" value="${ant.jdbc.username}"/>
+        <property name="password" value="${ant.jdbc.password}"/>
+        <property name="initialSize" value="${ant.jdbc.initialSize}"/>
+        <property name="maxActive" value="${ant.jdbc.maxActive}"/>
+        <property name="maxIdle" value="${ant.jdbc.maxIdle}"/>
+        <property name="defaultAutoCommit" value="false"/>
+        <property name="removeAbandoned" value="${ant.jdbc.removeAbandoned}"/>
+        <property name="removeAbandonedTimeout" value="${ant.jdbc.removeAbandonedTimeout}"/>
+        <property name="logAbandoned" value="${ant.jdbc.logAbandoned}"/>
+
+        <!--
+      <property name="connectionProperties" value="internal_logon=SYSDBA"/>
+
+      -->
+
+    </bean>
+
+</blueprint>
+
+

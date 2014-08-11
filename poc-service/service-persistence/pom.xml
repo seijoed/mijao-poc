@@ -11,4 +11,11 @@
 
     <artifactId>service-persistence</artifactId>
 
+    <packaging>pom</packaging>
+    <modules>
+        <module>civil-datasource</module>
+        <module>civil-jpa-persistence</module>
+    </modules>
+
+
 </project>

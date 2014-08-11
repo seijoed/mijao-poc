@@ -9,15 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>poc-service</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>data-model</module>
-        <module>webservice</module>
-        <module>remote-service</module>
-        <module>service-persistence</module>
-        <module>generic-jpa</module>
+    <artifactId>shaded</artifactId>
 
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>dbcp</module>
+        <module>enhydra-xa</module>
     </modules>
 
 </project>

@@ -3,21 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>mijao-parent</artifactId>
+        <artifactId>poc-service</artifactId>
         <groupId>com.mijao.poc</groupId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>poc-service</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>data-model</module>
-        <module>webservice</module>
-        <module>remote-service</module>
-        <module>service-persistence</module>
-        <module>generic-jpa</module>
-
-    </modules>
+    <artifactId>remote-service</artifactId>
 
 </project>

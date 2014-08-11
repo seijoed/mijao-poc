@@ -1,6 +1,6 @@
 package com.mijao.poc.persistence.civil.dao.entities;
 
-import java.sql.Timestamp;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 

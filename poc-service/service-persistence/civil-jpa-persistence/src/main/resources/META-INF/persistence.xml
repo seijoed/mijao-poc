@@ -16,60 +16,7 @@
       <!-- Datasource no transaction -->
     <non-jta-data-source>blueprint:comp/nonJTA</non-jta-data-source>
 
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntBloLicenciaPK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntBloqueosLicCtePK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntDatosLicenciaCtePK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntInfraccionesCtePK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntInfraccionPK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntLicenciaPK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntMovimientosLicCtePK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntMovLicenciaPK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntPersonasCtePK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntPersonasPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloqueosVehCteEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloVehiculoPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMatriculacionCteEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMatVehiculoEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntRevisionCteEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntRevVehiculoEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntVehiculoEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntVehiculosCteEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntRestMedPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntPersona</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloLicencia</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntInfraccion</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntRestmed</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMovLicencia</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntLicencia</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntPersonasCte</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloqueosLicCte</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntDatosLicenciaCte</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMovimientosLicCte</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntInfraccionesCte</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloqueosVehCteEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloVehiculoEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMatriculacionCteEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMatVehiculoEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntRevisionCteEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntRevVehiculoEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntVehiculoEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntVehiculosCteEntity</class>
-
+  <class>com.mijao.poc.persistence.civil.dao.entities.SarcCasoEntity</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <validation-mode>NONE</validation-mode>
 
@@ -95,60 +42,7 @@
     <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
     <jta-data-source>osgi:service/javax.sql.DataSource/(antTransactional=true)</jta-data-source>
     <non-jta-data-source>osgi:service/javax.sql.DataSource/(antTransactional=false)</non-jta-data-source>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntBloLicenciaPK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntBloqueosLicCtePK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntDatosLicenciaCtePK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntInfraccionesCtePK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntInfraccionPK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntLicenciaPK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntMovimientosLicCtePK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntMovLicenciaPK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntPersonasCtePK</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntPersonasPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloqueosVehCteEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloVehiculoPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMatriculacionCteEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMatVehiculoEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntRevisionCteEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntRevVehiculoEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntVehiculoEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntVehiculosCteEntityPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.AntRestMedPK</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntPersona</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloLicencia</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntInfraccion</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntRestmed</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMovLicencia</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntLicencia</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntPersonasCte</class>
-
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloqueosLicCte</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntDatosLicenciaCte</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMovimientosLicCte</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntInfraccionesCte</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloqueosVehCteEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntBloVehiculoEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMatriculacionCteEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntMatVehiculoEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntRevisionCteEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntRevVehiculoEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntVehiculoEntity</class>
-    <class>com.mijao.poc.persistence.civil.dao.entities.VmAntVehiculosCteEntity</class>
-
+<class>com.mijao.poc.persistence.civil.dao.entities.SarcCasoEntity</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <validation-mode>NONE</validation-mode>
     <properties>

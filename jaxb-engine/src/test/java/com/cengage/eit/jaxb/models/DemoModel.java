@@ -8,7 +8,8 @@ import java.util.UUID;
 
 @XmlRootElement(name = "demo")
 public class DemoModel {
-    private String id = UUID.randomUUID().toString();
+    
+	private String id = UUID.randomUUID().toString();
     private String name;
     private Map<String, String> map = new HashMap<>();
 
@@ -35,6 +36,6 @@ public class DemoModel {
     public void setName(String name) {
         this.name = name;
     }
-
+    
 }
 

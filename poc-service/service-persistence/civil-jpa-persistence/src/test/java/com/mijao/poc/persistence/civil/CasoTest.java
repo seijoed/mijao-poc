@@ -10,12 +10,15 @@ import com.mijao.poc.persistence.civil.dao.entities.SarcCasoEntity;
 public class CasoTest extends TestBase {
 
     @Test
-    // @Ignore("Integration test.")
-    @Ignore("Integration test.")
+   
     public void testGetById() {
 
        CasoDao dao = (CasoDao) getBean("casoDAO");
        SarcCasoEntity caso = dao.read(1);
+       System.out.println(caso.getId_caso());
+       System.out.println(caso.getTx_asunto());
+       System.out.println(caso.getTx_descripcion());
+       System.out.println(caso.getFe_caso());
        assertNotNull(caso);
     }
 

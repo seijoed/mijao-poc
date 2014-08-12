@@ -10,6 +10,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>generic-jpa</artifactId>
+    
+    <packaging>bundle</packaging>
+    
+      <properties>
+        <mijao.osgi.export.pkg>
+            com.mijao.poc.jpa.generic
+          
+
+        </mijao.osgi.export.pkg>
+        <mijao.osgi.import.pkg>
+            
+            org.hsqldb;resolution:=optional,
+            *
+        </mijao.osgi.import.pkg>
+     
+    </properties>
 
     <dependencies>
         <dependency>

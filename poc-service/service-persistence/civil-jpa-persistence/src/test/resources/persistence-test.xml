@@ -91,9 +91,15 @@
 
   <!-- DAOs -->
 
+  <!--  
+
   <bean id="personasDAO" class="com.mijao.poc.persistence.civil.dao.jpa.PersonasDaoImpl"/>
 
   <bean id="personasCteDAO" class="com.mijao.poc.persistence.civil.dao.jpa.PersonasCteDaoImpl"/>
+  
+  -->
+  
+  <bean id="casoDAO" class="com.mijao.poc.persistence.civil.dao.jpa.CasoDaoImpl"/>
 
   <!-- SVC Layer -->
 

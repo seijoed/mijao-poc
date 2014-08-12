@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>eit-parent</artifactId>
+        <groupId>com.cengage.eit</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>eit-persistence</artifactId>
+
+    <packaging>bundle</packaging>
+
+    <properties>
+        <cengage.osgi.export.pkg>
+            com.cengage.eit.persistence
+        </cengage.osgi.export.pkg>
+
+        <cengage.osgi.import>
+            *
+        </cengage.osgi.import>
+        <cengage.osgi.dynamic>*</cengage.osgi.dynamic>
+    </properties>
+
+</project>

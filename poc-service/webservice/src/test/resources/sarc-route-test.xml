@@ -39,11 +39,16 @@
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
         <route>
             <from uri="cxfrs:bean:rsServer"/>
-            <to uri="sarcProcessor"/>
-            <!-- Wiretap to AMQ Here -->
+            <to uri="seda:sarc_req"/>
+            <!-- Wiretap to AMQ Here <to uri="sarcProcessor"/> -->
             <wireTap uri="seda:sarc_logging"/>
             <to uri="jsonProcessor"/>
             <!-- Processor to convert in to out for reply to client here -->
+        </route>
+
+        <route>
+            <from uri="seda:sarc_req?concurrentConsumers=10"/>
+            <to uri="sarcProcessor"/>
         </route>
 
         <route>

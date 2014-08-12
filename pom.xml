@@ -843,6 +843,14 @@
                 <version>${snappyjava-version}</version>
             </dependency>
 
+            <!-- ORACLE - SHADED -->
+
+            <dependency>
+                <groupId>com.mijao.poc</groupId>
+                <artifactId>oracle</artifactId>
+                <version>1.0.1-SNAPSHOT</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -890,6 +898,7 @@
             <version>${camel-version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
 </project>

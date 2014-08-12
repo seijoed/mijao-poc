@@ -13,7 +13,7 @@
 
 
       <jta-data-source>blueprint:comp/nonJTA</jta-data-source>
-      <!-- Datasource non tranaction -->
+      <!-- Datasource no transaction -->
     <non-jta-data-source>blueprint:comp/nonJTA</non-jta-data-source>
 
     <class>com.mijao.poc.persistence.civil.dao.entities.AntBloLicenciaPK</class>

@@ -11,7 +11,6 @@
 
     <artifactId>civil-jpa-persistence</artifactId>
 
-
     <packaging>bundle</packaging>
 
     <properties>
@@ -36,6 +35,12 @@
 
         <dependency>
             <groupId>com.mijao.poc</groupId>
+            <artifactId>oracle</artifactId>
+
+        </dependency>
+
+        <dependency>
+            <groupId>com.mijao.poc</groupId>
             <artifactId>generic-jpa</artifactId>
             <version>1.0.1-SNAPSHOT</version>
         </dependency>
@@ -51,7 +56,6 @@
             <artifactId>openjpa</artifactId>
             <version>2.3.0</version>
         </dependency>
-
 
         <!-- ORACLE
         <dependency>

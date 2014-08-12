@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:ctx="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+         http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
+    <!-- SVC Layer -->
+
+
+
+    <bean id="sarcProcessor" class="com.mijao.poc.web.rest.CasoProcessor">
+        <property name="casoDao" ref="casoDAO"/>
+
+    </bean>
+
+    <bean id="marshaller" class="com.mijao.poc.web.rest.SarcCasoMarshaller">
+        <property name="engine" ref="globalEngine"/>
+    </bean>
+
+    <bean id="jsonProcessor" class="com.mijao.poc.web.rest.JsonResourceProcessor">
+        <property name="engine" ref="globalEngine"/>
+    </bean>
+
+    <bean id="globalEngine" class="com.mijao.poc.jaxb.JaxbEngineProvider">
+        <constructor-arg value="com.mijao.poc.persistence.civil.dao.entities"/>
+    </bean>
+
+    <cxf:rsServer id="rsServer" address="http://localhost:9999/"
+                      serviceClass="com.mijao.poc.web.rest.CasoServiceResource"/>
+
+
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <route>
+            <from uri="cxfrs:bean:rsServer"/>
+            <to uri="sarcProcessor"/>
+            <!-- Wiretap to AMQ Here -->
+            <wireTap uri="seda:sarc_logging"/>
+            <to uri="jsonProcessor"/>
+            <!-- Processor to convert in to out for reply to client here -->
+        </route>
+
+        <route>
+            <from uri="seda:sarc_logging"/>
+            <to uri="marshaller"/>
+            <to uri="log:sarc"/>
+            <to uri="mock:log"/>
+        </route>
+    </camelContext>
+
+    <!-- This loads the db.properties file for unit tests only -->
+      <ctx:property-placeholder location="classpath:db.properties"/>
+
+      <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <!-- Connection Info -->
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+       <!--
+        <property name="connectionProperties" value="internal_logon=SYSDBA"/>
+           -->
+        <!-- Connection Pooling DBCP -->
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+        <property name="maxIdle" value="${jdbc.maxIdle}"/>
+        <property name="defaultAutoCommit" value="${jdbc.defaultAutoCommit}"/>
+        <property name="removeAbandoned" value="${jdbc.removeAbandoned}"/>
+        <property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}"/>
+        <property name="logAbandoned" value="${jdbc.logAbandoned}"/>
+
+      </bean>
+
+      <aop:config>
+        <aop:pointcut id="serviceOperation" expression="execution(* com.mijao.poc.persistence.*dao.*(..))"/>
+        <aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice"/>
+      </aop:config>
+
+      <tx:advice id="txAdvice">
+        <tx:attributes>
+          <tx:method name="find*" read-only="true"/>
+          <tx:method name="get*" read-only="true"/>
+          <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+      </tx:advice>
+
+      <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+            lazy-init="false">
+        <property name="persistenceUnitName" value="civil-test"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+          <bean class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
+            <property name="showSql" value="${openjpa.show_sql}"/>
+            <property name="database" value="${openjpa.database}"/>
+
+          </bean>
+        </property>
+
+        <property name="jpaProperties">
+          <props>
+            <!--prop key="openjpa.jdbc.DBDictionary"> value="hsql(SimulateLocking=true)"/-->
+          </props>
+        </property>
+      </bean>
+
+      <tx:annotation-driven transaction-manager="transactionManager"/>
+
+      <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
+      <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
+      <!-- Transaction Configuration -->
+      <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+      <!-- Transactions -->
+      <bean id="transactionManager"
+            class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory"
+                  ref="entityManagerFactory"/>
+        <property name="nestedTransactionAllowed" value="true"/>
+
+      </bean>
+
+      <bean id="transactionInterceptor"
+            class="org.springframework.transaction.interceptor.TransactionInterceptor">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="transactionAttributeSource">
+          <bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
+        </property>
+      </bean>
+
+      <!-- DAOs -->
+
+      <!--
+
+      <bean id="personasDAO" class="com.mijao.poc.persistence.civil.dao.jpa.PersonasDaoImpl"/>
+
+      <bean id="personasCteDAO" class="com.mijao.poc.persistence.civil.dao.jpa.PersonasCteDaoImpl"/>
+
+      -->
+
+      <bean id="casoDAO" class="com.mijao.poc.persistence.civil.dao.jpa.CasoDaoImpl"/>
+
+</beans>

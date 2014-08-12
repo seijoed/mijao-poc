@@ -1,0 +1,60 @@
+<!--
+  ~ Copyright (c) 2012. Latinus S.A.
+  -->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+      http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint.xsd"
+    >
+
+    <cm:property-placeholder persistent-id="com.mijao.poc.sarc.route" id="sarcroute" update-strategy="reload">
+        <cm:default-properties>
+            <cm:property name="sarc.restful.address" value="/"/>
+            <cm:property name="sarc.timeout" value="5000"/>
+            <cm:property name="sarc.delay" value="60000"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <cxf:rsServer id="rsServer" address="${sarc.restful.address}"
+                  serviceClass="com.mijao.poc.web.rest.CasoServiceResource">
+    </cxf:rsServer>
+
+    <bean id="sarcProcessor" class="com.mijao.poc.web.rest.CasoProcessor" init-method="init">
+        <property name="casoDao" ref="casoDao"/>
+
+    </bean>
+
+    <reference id="casoDao" interface="om.mijao.poc.persistence.civil.dao.CasoDao"/>
+
+    <bean id="marshaller" class="com.mijao.poc.web.rest.SarcCasoMarshaller">
+        <property name="engine" ref="globalEngine"/>
+    </bean>
+
+    <reference id="globalEngine" interface="com.mijao.poc.jaxb.JaxbEngine"/>
+
+    <bean id="jsonProcessor" class="com.mijao.poc.web.rest.JsonResourceProcessor">
+        <property name="engine" ref="globalEngine"/>
+    </bean>
+
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+
+        <route>
+            <from uri="cxfrs:bean:rsServer"/>
+            <to uri="sarcProcessor"/>
+            <!-- Wiretap to AMQ Here -->
+            <wireTap uri="seda:sarc_logging"/>
+            <to uri="jsonProcessor"/>
+            <!-- Processor to convert in to out for reply to client here -->
+        </route>
+
+        <route>
+            <from uri="seda:sarc_logging"/>
+            <to uri="marshaller"/>
+            <to uri="log:sarc"/>
+        </route>
+
+    </camelContext>
+
+</blueprint>

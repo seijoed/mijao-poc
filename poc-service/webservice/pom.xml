@@ -11,4 +11,104 @@
 
     <artifactId>webservice</artifactId>
 
+    <packaging>bundle</packaging>
+
+    <properties>
+        <mijao.osgi.export.pkg>
+            com.mijao.poc.web.rest
+
+        </mijao.osgi.export.pkg>
+        <mijao.osgi.import.pkg>
+            org.apache.openjpa.enhance;version="[2.1.0,3)",
+            org.apache.openjpa.util;version="[2.1.0,3)",
+            javax.persistence,
+            javax.transaction,
+            org.hsqldb;resolution:=optional,
+            *
+        </mijao.osgi.import.pkg>
+
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.mijao.poc</groupId>
+            <artifactId>oracle</artifactId>
+
+        </dependency>
+
+        <dependency>
+            <groupId>com.mijao.poc</groupId>
+            <artifactId>civil-jpa-persistence</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-cxf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jms</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mijao.poc</groupId>
+            <artifactId>jaxb-engine</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jettison</groupId>
+            <artifactId>jettison</artifactId>
+            <version>1.3.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-extension-providers</artifactId>
+            <version>${cxf-version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http-jetty</artifactId>
+        </dependency>
+
+        <!-- TO USE DB -->
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>3.2.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <scope>test</scope>
+            <version>1.8.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <scope>test</scope>
+            <version>1.8.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <scope>test</scope>
+            <version>1.8.1</version>
+        </dependency>
+
+    </dependencies>
+
 </project>

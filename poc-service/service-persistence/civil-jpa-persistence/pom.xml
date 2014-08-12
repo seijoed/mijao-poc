@@ -71,12 +71,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>3.0.7.RELEASE</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.7</version>
@@ -123,15 +117,32 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>3.0.7.RELEASE</version>
+            <version>3.2.4.RELEASE</version>
+            <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <scope>test</scope>
+            <version>3.2.4.RELEASE</version>
+        </dependency>
+
+
 
         <!-- Test -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
-            <version>3.0.7.RELEASE</version>
+            <version>3.2.4.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>3.2.4.RELEASE</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

@@ -29,16 +29,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.camel:camel-test:2.12.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.camel:camel-core:2.12.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.6" level="project" />
-    <orderEntry type="module" module-name="oracle" />
-    <orderEntry type="module-library">
-      <library name="Maven: oracle:oracle:6.0">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../shaded/oracle/lib/ojdbc6.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
   </component>
 </module>
 

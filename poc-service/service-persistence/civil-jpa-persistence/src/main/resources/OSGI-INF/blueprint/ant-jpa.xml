@@ -7,7 +7,7 @@
 
     <bean id="casoDAO" class="com.mijao.poc.persistence.civil.dao.jpa.CasoDaoImpl">
         <tx:transaction method="*" value="NotSupported"/>
-           <jpa:context property="entityManager" unitname="ant-jpa"/>
+           <jpa:context property="entityManager" unitname="civil-jpa"/>
     </bean>
 
 

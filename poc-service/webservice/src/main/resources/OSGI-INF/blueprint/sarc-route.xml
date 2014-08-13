@@ -26,7 +26,7 @@
 
     </bean>
 
-    <reference id="casoDao" interface="om.mijao.poc.persistence.civil.dao.CasoDao"/>
+    <reference id="casoDao" interface="com.mijao.poc.persistence.civil.dao.CasoDao"/>
 
     <bean id="marshaller" class="com.mijao.poc.web.rest.SarcCasoMarshaller">
         <property name="engine" ref="globalEngine"/>

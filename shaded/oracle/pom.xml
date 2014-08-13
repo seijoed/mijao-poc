@@ -47,7 +47,7 @@
     </build>
     <properties>
 
-        <mijao.osgi.import.pkg>
+        <mijao.osgi.import>
             !sun*,
             !javax.resource,
             !javax.resource.spi,
@@ -60,11 +60,11 @@
             !oracle.xdb,
             !oracle.xml.parser.v2,
             !com.sun*,*
-        </mijao.osgi.import.pkg>
+        </mijao.osgi.import>
 
-        <mijao.osgi.export.pkg>
+        <mijao.osgi.export>
             oracle*;version=${project.version},
-        </mijao.osgi.export.pkg>
+        </mijao.osgi.export>
         <pkgArtifactId>oracle</pkgArtifactId>
         <pkgGroupId>oracle</pkgGroupId>
     </properties>

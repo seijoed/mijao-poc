@@ -1,22 +1,21 @@
-<features name="com.cengage.eit.parent-${project.version}">
+<features name="com.mijao.poc.deployment-${project.version}">
 
     <repository>mvn:org.apache.camel.karaf/apache-camel/${camel-version}/xml/features</repository>
     <repository>mvn:org.apache.activemq/activemq-karaf/${activemq-version}/xml/features</repository>
 
     <!-- Infrastructure -->
 
-    <feature name="eit-jaxb-pool" version="${project.version}">
-        <feature version="${camel-version}">camel-jaxb</feature>
+    <feature name="jaxb-engine" version="${project.version}">
+        <feature>camel-jaxb</feature>
         <bundle dependency="true">mvn:commons-pool/commons-pool/1.6</bundle>
-        <bundle>mvn:com.cengage.eit/jaxb-engine/${project.version}</bundle>
+        <bundle>mvn:com.mijao.poc/jaxb-engine/${project.version}</bundle>
     </feature>
 
-    <feature name="eit-jms-pool" version="${project.version}">
-        <bundle>mvn:com.cengage.eit/jms-pooling/${project.version}</bundle>
+    <feature name="jms-pool" version="${project.version}">
+        <bundle>mvn:com.mijao.poc/jms-pooling/${project.version}</bundle>
     </feature>
 
-    <feature name="eit-eventing" version="${project.version}">
-        <feature version="${project.version}">eit-persistence</feature>
+    <feature name="mijao-core" version="${project.version}">
         <bundle dependency="true">mvn:commons-collections/commons-collections/${commons-collections-version}</bundle>
         <bundle dependency="true">mvn:commons-beanutils/commons-beanutils/${commons-beanutils-version}</bundle>
         <bundle dependency="true">mvn:com.google.guava/guava/${guava-version}</bundle>
@@ -31,31 +30,51 @@
         <bundle dependency="true">mvn:io.netty/netty/${netty-persistence-version}</bundle>
         <bundle dependency="true">mvn:com.datastax.cassandra/cassandra-driver-core/${cassandra-driver-version}</bundle>
         <bundle>mvn:com.savoirtech.hecate/hecate-cql3/${hecate-version}</bundle>
-        <bundle dependency="true">mvn:com.cengage.eit/eit-eventing/${project.version}</bundle>
     </feature>
 
-    <feature name="eit-persistence" version="${project.version}">
-        <feature>camel-jetty</feature>
-        <feature>camel-http4</feature>
+    <feature name="mijao-jpa-core" version="${project.version}">
+        <feature>mijao-core</feature>
+        <bundle dependency='true'>mvn:org.apache.geronimo.specs/geronimo-annotation_1.0_spec/${geronimo.annotation.version}</bundle>
+        <bundle dependency='true'>mvn:org.apache.geronimo.specs/geronimo-jpa_2.0_spec/${geronimo.jpa.spec.version}</bundle>
+        <feature version='[3,4)'>spring-tx</feature>
+        <bundle dependency='true'>mvn:org.apache.geronimo.specs/geronimo-el_1.0_spec/${geronimo.el.version}</bundle>
+        <bundle dependency='true'>mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/${geronimo.jtaspec.version}</bundle>
+        <feature version='[3,4)'>spring-jdbc</feature>
+        <bundle dependency='true'>mvn:commons-lang/commons-lang/${commons-lang-version}</bundle>
+        <bundle dependency='true'>mvn:commons-collections/commons-collections/${commons-collections-version}</bundle>
+        <bundle dependency='true'>mvn:commons-pool/commons-pool/${commons-pool-version}</bundle>
+        <bundle>mvn:commons-dbcp/commons-dbcp/${commons-dbcp-version}</bundle>
+        <bundle dependency='true'>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.ant/${ant.version}</bundle>
+        <bundle dependency='true'>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.serp/${serp.version}</bundle>
 
-        <bundle dependency="true">mvn:commons-beanutils/commons-beanutils/${commons-beanutils-version}</bundle>
-        <bundle dependency="true">mvn:com.google.guava/guava/${guava-version}</bundle>
-        <bundle dependency="true">mvn:commons-pool/commons-pool/${commons-pool-version}</bundle>
-        <bundle dependency="true">mvn:commons-codec/commons-codec/${commons-codec-version}</bundle>
-        <bundle dependency="true">mvn:commons-lang/commons-lang/${commons-lang-version}</bundle>
-        <bundle dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3-version}</bundle>
-        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.javassist/${javassist-version}</bundle>
-        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.ognl/${ognl-version}_1</bundle>
-        <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.fastinfoset/1.2.2_1</bundle>
-        <bundle dependency="true">mvn:com.codahale.metrics/metrics-core/${metrics-core-version}</bundle>
-        <bundle dependency="true">mvn:io.netty/netty/${netty-persistence-version}</bundle>
-        <bundle dependency="true">mvn:com.datastax.cassandra/cassandra-driver-core/${cassandra-driver-version}</bundle>
-        <bundle>mvn:com.savoirtech.hecate/hecate-cql3/${hecate-version}</bundle>
+        <bundle dependency='true'>mvn:org.apache.geronimo.specs/geronimo-jms_1.1_spec/${jms.spec.version}</bundle>
+        <feature version='[3,4)'>spring-orm</feature>
+        <feature>camel-core</feature>
+        <feature>camel-jpa</feature>
+        <bundle>mvn:com.mijao.poc/generic-jpa/${project.version}</bundle>
 
-        <bundle dependency="true">mvn:com.cengage.eit/eit-persistence/${project.version}</bundle>
+    </feature>
 
-        <bundle dependency="true">mvn:com.cengage.eit/eit-persistence-cql/${project.version}</bundle>
+    <feature name="mijao-sarc-persistence" version="${project.version}">
+        <feature>transaction</feature>
+        <feature>jndi</feature>
 
+        <feature>jpa</feature>
+        <feature>mijao-jpa-core</feature>
+
+        <bundle>mvn:com.mijao.poc/oracle/${project.version}</bundle>
+        <bundle>mvn:commons-dbcp/commons-dbcp/${commons-dbcp-version}</bundle>
+        <bundle>mvn:com.mijao.poc/enhydra-xa/${project.version}</bundle>
+
+        <bundle>mvn:com.mijao.poc/civil-datasource/${project.version}</bundle>
+        <bundle>mvn:com.mijao.poc/civil-jpa-persistence/${project.version}</bundle>
+    </feature>
+
+    <feature name="mijao-sarc-webservice" version="${project.version}">
+        <feature version='${project.version}'>jaxb-engine</feature>
+        <feature>mijao-sarc-persistence</feature>
+
+        <bundle>mvn:com.mijao.poc/webservice/${project.version}</bundle>
     </feature>
 
 </features>

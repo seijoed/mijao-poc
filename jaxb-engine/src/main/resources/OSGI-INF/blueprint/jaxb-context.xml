@@ -5,7 +5,7 @@
     >
 
     <!-- Globalized engine context for all JAXB needs -->
-    <cm:property-placeholder persistent-id="com.cengage.eit.jaxb.pool" id="jaxb-pool" update-strategy="reload">
+    <cm:property-placeholder persistent-id="com.mijao.poc.jaxb" id="jaxb-pool" update-strategy="reload">
         <cm:default-properties>
             <cm:property name="jaxb.class.packages" value=""/>
         </cm:default-properties>

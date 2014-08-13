@@ -470,6 +470,13 @@
                         <_failok>${mijao.osgi.failok}</_failok>
                         <Embed-Dependency>${mijao.osgi.embed}</Embed-Dependency>
                         <Mutator-Classpath>${mijao.osgi.mutator}</Mutator-Classpath>
+                        <Fragment-Host>${mijao.osgi.fragmenthost}</Fragment-Host>
+                                               <Embed-Dependency>${mijao.osgi.embed.dependency}</Embed-Dependency>
+
+                                               <Require-Bundle>${mijao.osgi.require.bundles}</Require-Bundle>
+                                               <Spring-Context>${mijao.osgi.spring.context}</Spring-Context>
+
+                                               <Meta-Persistence>${mijao.osgi.jpa.context}</Meta-Persistence>
                     </instructions>
                 </configuration>
             </plugin>
